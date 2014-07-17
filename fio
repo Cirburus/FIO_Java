@@ -53,7 +53,11 @@ public class fio {
 		{
 			inputLine = fileInput.readLine();
 			if (inputLine == null){ moreData = false;}
-			return inputLine;
+			if (moreData) {
+				return inputLine;
+			}else{
+				return "No More Data";
+			}
 		}
 		catch (IOException error)
 		{
@@ -61,7 +65,6 @@ public class fio {
 					fileName + "!\n");
 			System.exit(1);
 		}
-		return null;
 	}  // end readLine
 	
 	//****************************************
