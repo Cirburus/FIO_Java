@@ -1,0 +1,86 @@
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.File;
+import java.io.IOException;
+
+//****************************************
+// Use this template to do FI and O.
+//**************************************** 
+public class fio {
+	BufferedReader fileInput;
+	private String fileName;
+	boolean moreData;
+	
+	//****************************************
+	// Default constructor.
+	//**************************************** 
+	public fio () {
+		fileName = null;
+		moreData = false;
+	}
+	
+	//****************************************
+	// Constructor to open a given file.
+	//****************************************
+	public void openFile(String name){
+		if (!name.equals(null)) {
+			fileName = name;
+			try {
+				File inFile = new File(name);
+				FileReader fileReader = new FileReader(inFile);
+				fileInput = new BufferedReader(fileReader);
+				moreData = true;
+			} catch (FileNotFoundException e) {
+				System.err.println ("An error occurred opening file " +
+						fileName + "!\n");
+				System.exit(1);
+			}
+		}
+	}
+	
+	//****************************************
+	// Reads the next whole line of the file
+	//****************************************
+	public String readLine(){
+		String inputLine;
+		if (fileName.equals(null)) {
+			System.err.println("There is no file opened. Please check the file name or open the file");
+			System.exit(1);
+		}
+		try
+		{
+			inputLine = fileInput.readLine();
+			if (inputLine == null){ moreData = false;}
+			return inputLine;
+		}
+		catch (IOException error)
+		{
+			System.err.println ("An error occurred reading from file " +
+					fileName + "!\n");
+			System.exit(1);
+		}
+		return null;
+	}  // end readLine
+	
+	//****************************************
+	// Peeks to see if there is more data
+	//****************************************
+	public boolean hasMoreData() {
+		return moreData;
+  }//end hasMore
+  
+	//****************************************
+	// Closes the open file.
+	//****************************************
+	public void fileClose() {
+		try {
+			fileInput.close();
+		}
+		catch (IOException error) {
+			System.err.println("An error occurred writing to a file" + fileName+"!\n");
+		}
+	}//end close
+
+}//End Class
